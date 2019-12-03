@@ -1,62 +1,32 @@
-const path = require('path');
+const path = require('path'),
+    webpack = require('webpack'),
+    HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const isProduction = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'production';
-const mode = isProduction ? 'production' : 'development';
-const devtool = isProduction ? false : 'inline-source-map';
-module.exports = [
-  {
-    entry: './src/client.ts',
-    target: 'web',
-    mode: 'development',
-    devtool,
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: {
-              loader: 'ts-loader',
-              options: {
-                compilerOptions: {
-                  "sourceMap": !isProduction,
-                }
-              }
-            }
-          exclude: /node_modules/
-        }
-      ]
-    },
-    resolve: {
-      extensions: [ '.tsx', '.ts', '.js' ]
+module.exports = {
+    entry: {
+        app: ['./src/app/index.tsx', 'webpack-hot-middleware/client'],
+        vendor: ['react', 'react-dom']
     },
     output: {
-      filename: 'client.js',
-      path: path.join(__dirname, 'dist', 'public')
-    }
-  },
-  {
-    entry: './src/server.ts',
-    target: 'node',
-    mode,
-    devtool,
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
-        }
-      ]
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/[name].bundle.js'
     },
+    devtool: 'source-map',
+    mode: 'none',
     resolve: {
-      extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
     },
-    output: {
-      filename: 'server.js',
-      path: path.resolve(__dirname, 'dist')
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx)$/,
+                loader: 'ts-loader'
+            },
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+        ]
     },
-    node: {
-      __dirname: false,
-      __filename: false,
-    }
-  }
-];
+    plugins: [
+        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'app', 'index.html') }),
+        new webpack.HotModuleReplacementPlugin()
+    ]
+}
