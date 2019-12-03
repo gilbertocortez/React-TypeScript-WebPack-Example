@@ -1,0 +1,1 @@
+This is a sample app to show proficiency in React with Typescript and Webpack
