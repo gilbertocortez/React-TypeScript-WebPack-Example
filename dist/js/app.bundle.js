@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "b5be5ca39109d76f99df";
+/******/ 	var hotCurrentHash = "6b5d503baa8e0b5118f9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -32614,11 +32614,11 @@ var HelloWorld = (function (_super) {
     }
     HelloWorld.prototype.render = function () {
         return React.createElement("h1", null,
-            "Hi there from React! ",
+            "Hi there from React! My name is ",
             this.props.firstName,
-            " and ",
+            " ",
             this.props.lastName,
-            " and I am an expert developer!");
+            " and I am an expert React, TypeScript and WebPack developer!");
     };
     return HelloWorld;
 }(React.Component));
