@@ -4,6 +4,6 @@ import * as ReactDOM from "react-dom";
 import { HelloWorld } from "./components/HelloWorld";
 
 ReactDOM.render(
-    <HelloWorld firstName="Chris" lastName="Parker" />,
+    <HelloWorld firstName="Gilberto" lastName="Cortez" />,
     document.getElementById("content")
 );
